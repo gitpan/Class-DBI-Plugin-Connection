@@ -5,13 +5,13 @@ use Carp;
 
 use vars '$VERSION';
 
-$VERSION = 0.01;
+$VERSION = 0.02;
 
 sub import {
 	my $class = shift;
 	my $pkg   = caller(0);
 	unless($pkg->isa('Class::DBI')){
-		croak(__PACKAGE__." is for Clas::DBI application.");
+		croak(__PACKAGE__." is for Class::DBI application.");
 	}
 	$pkg->mk_classdata('connection_caching');
 	$pkg->connection_caching($ENV{MOD_PERL} ? 0 : 1);
@@ -59,7 +59,7 @@ Class::DBI::Plugin::Connection - apply for Apache::DBI in mod_perl environment
 This module handles CDBI app's connection type.
 
 CDBI makes connection with DBI::connect_cached
-to dicrease connection costs. This is better most of the time.
+to decrease connection costs. This is better most of the time.
 
 But when you want to use CDBI in mod_perl environment,
 Maybe you want to use Apache::DBI for persistent connection.
