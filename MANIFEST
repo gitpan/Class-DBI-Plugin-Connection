@@ -1,0 +1,6 @@
+MANIFEST
+Changes
+README
+Makefile.PL
+lib/Class/DBI/Plugin/Connection.pm
+t/00_compile.t
