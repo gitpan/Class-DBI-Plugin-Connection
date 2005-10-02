@@ -1,5 +1,8 @@
 Revision history for Perl extension Class::DBI::Plugin::Connection
 
+1.00 Sun Oct 1 02:58:00 2005
+       - little bit fixed documentation
+
 0.02 Fri Mar 18 20:58:00 2005
        - fixed typo
 

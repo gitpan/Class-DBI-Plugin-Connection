@@ -5,29 +5,29 @@ use Carp;
 
 use vars '$VERSION';
 
-$VERSION = 0.02;
+$VERSION = '1.00';
 
 sub import {
-	my $class = shift;
-	my $pkg   = caller(0);
-	unless($pkg->isa('Class::DBI')){
-		croak(__PACKAGE__." is for Class::DBI application.");
-	}
-	$pkg->mk_classdata('connection_caching');
-	$pkg->connection_caching($ENV{MOD_PERL} ? 0 : 1);
-	no strict 'refs';
-	*{$pkg."::_mk_db_closure"} = sub {
-		my($class, @connection) = @_;
-		my $dbh;
-		return sub {
-			unless ($dbh && $dbh->FETCH('Active') && $dbh->ping){
-				$dbh = $class->connection_caching
-					? DBI->connect_cached(@connection)
-					: DBI->connect(@connection);
-			}
-			return $dbh;
-		};
-	};
+    my $class = shift;
+    my $pkg   = caller(0);
+    unless($pkg->isa('Class::DBI')){
+        croak(__PACKAGE__." is for Class::DBI application.");
+    }
+    $pkg->mk_classdata('connection_caching');
+    $pkg->connection_caching($ENV{MOD_PERL} ? 0 : 1);
+    no strict 'refs';
+    *{$pkg."::_mk_db_closure"} = sub {
+        my($class, @connection) = @_;
+        my $dbh;
+        return sub {
+            unless ($dbh && $dbh->FETCH('Active') && $dbh->ping){
+                $dbh = $class->connection_caching
+                    ? DBI->connect_cached(@connection)
+                    : DBI->connect(@connection);
+            }
+            return $dbh;
+        };
+    };
 }
 
 1;
@@ -75,7 +75,7 @@ As the solution for this problem, you can use this module.
 
 All you have to do is to write 'use Class::DBI::Plugin::Connection;',
 and proper connection method will be selected automatically.
-But if there are times when you want to choose connection type yourself,
+But if there are times when you want to choose connection type by yourself,
 set this property.
 
   __PACKAGE__->connection_caching(0); # connect with DBI->connect(...)
@@ -86,7 +86,7 @@ set this property.
 
 =head1 AUTHOR
 
-Lyo Kato E<lt>kato@lost-season.jpE<gt>
+Lyo Kato E<lt>lyo.kato@gmail.comE<gt>
 
 =head1 SEE ALSO
 
